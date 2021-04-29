@@ -10,16 +10,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
         // home: HomePage(),
-        initialRoute: 'login',
+        initialRoute: 'home',
         routes: {
           'home': (_) => HomePage(),
           'login': (_) => LoginPage(),
-          'products': (_) => ProductoPage(),
+          'producto': (_) => ProductoPage(),
         },
       ),
     );

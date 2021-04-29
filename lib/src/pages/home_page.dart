@@ -4,22 +4,22 @@ import 'package:shopflutter/src/bloc/provider.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final bloc = Provider.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home')
+      appBar: AppBar(title: Text('Home')),
+      body: Container(
+        child: Column(),
       ),
-      body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Email: ${ bloc.email }'),
-            Divider(),
-            Text('Password: ${ bloc.password }')
-          ],
-      ),
+      floatingActionButton: _crearBoton(context, 'producto', Icon(Icons.add)),
+    );
+  }
+
+  Widget _crearBoton(BuildContext context, String url, Icon icon) {
+    return FloatingActionButton(
+      child: icon,
+      onPressed: () => Navigator.pushNamed(context, url),
+      backgroundColor: Colors.deepPurple,
     );
   }
 }
