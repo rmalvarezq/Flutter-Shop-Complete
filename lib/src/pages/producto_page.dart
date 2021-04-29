@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopflutter/src/models/producto_model.dart';
+import 'package:shopflutter/src/providers/productos_provider.dart';
 import 'package:shopflutter/src/utils/utils.dart' as utils;
 
 class ProductoPage extends StatefulWidget {
@@ -9,12 +10,18 @@ class ProductoPage extends StatefulWidget {
 
 class _ProductoPageState extends State<ProductoPage> {
   final formKey = GlobalKey<FormState>();
-
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  ProductosProvider productosProvider = new ProductosProvider();
   ProductoModel producto = new ProductoModel();
 
   @override
   Widget build(BuildContext context) {
+    final ProductoModel prodData = ModalRoute.of(context).settings.arguments;
+    if (prodData != null) {
+      producto = prodData;
+    }
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text('Productos'),
         actions: [
@@ -105,6 +112,17 @@ class _ProductoPageState extends State<ProductoPage> {
     );
   }
 
+  Widget _crearDisponible() {
+    return SwitchListTile(
+      value: producto.disponible,
+      title: Text('Disponible'),
+      activeColor: Colors.deepPurple,
+      onChanged: (value) => setState(() {
+        producto.disponible = value;
+      }),
+    );
+  }
+
   void _submit() {
     // Cuando el fomulario es  válido
     if (!formKey.currentState.validate()) return;
@@ -112,16 +130,18 @@ class _ProductoPageState extends State<ProductoPage> {
     print(producto.titulo);
     print(producto.valor);
     print(producto.disponible);
+    if (producto.id == null) {
+      productosProvider.crearProducto(producto);
+    } else {
+      productosProvider.editarProducto(producto);
+    }
   }
 
-  Widget _crearDisponible() {
-    return SwitchListTile(
-      value: producto.disponible,
-      title: Text('Disponible'),
-      activeColor: Colors.deepPurple,
-      onChanged: (value)=> setState((){
-        producto.disponible = value;
-      }),
+  void mostrarSnackBar(String mensaje) {
+    final snackbar = SnackBar(
+      content: Text(mensaje),
+      duration: Duration(milliseconds: 1500),
     );
+
   }
 }
