@@ -13,7 +13,7 @@ class _ProductoPageState extends State<ProductoPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   ProductosProvider productosProvider = new ProductosProvider();
   ProductoModel producto = new ProductoModel();
-
+  bool _guardando = false;
   @override
   Widget build(BuildContext context) {
     final ProductoModel prodData = ModalRoute.of(context).settings.arguments;
@@ -108,7 +108,7 @@ class _ProductoPageState extends State<ProductoPage> {
           ),
         ),
       ),
-      onPressed: _submit,
+      onPressed: (_guardando) ? null : _submit,
     );
   }
 
@@ -127,21 +127,47 @@ class _ProductoPageState extends State<ProductoPage> {
     // Cuando el fomulario es  válido
     if (!formKey.currentState.validate()) return;
     formKey.currentState.save();
-    print(producto.titulo);
-    print(producto.valor);
-    print(producto.disponible);
+    setState(() {
+      _guardando = true;
+    });
     if (producto.id == null) {
       productosProvider.crearProducto(producto);
     } else {
       productosProvider.editarProducto(producto);
     }
+    setState(() {
+      _guardando = false;
+    });
+    mostrarSnackBar('Registro guardado');
+    Navigator.pushNamed(context, 'home');
   }
 
   void mostrarSnackBar(String mensaje) {
-    final snackbar = SnackBar(
-      content: Text(mensaje),
-      duration: Duration(milliseconds: 1500),
-    );
-
+    // final snackbar = SnackBar(
+    //   content: Text(mensaje),
+    //   duration: Duration(milliseconds: 1500),
+    // );
+    // // scaffoldKey.currentState.showSnackBar(snackbar);
+    // if (context == null) return;
+    if (scaffoldKey == null) return;
+    if (scaffoldKey.currentState == null) return;
+    FocusScope.of(context).requestFocus(new FocusNode());
+    if (scaffoldKey.currentState != null) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    }
+    if (scaffoldKey.currentState != null) {
+      ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+        content: Text(
+          mensaje,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+          ),
+        ),
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 1),
+      ));
+    }
   }
 }

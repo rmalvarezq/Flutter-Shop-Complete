@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
           return ListView.builder(
             itemCount: productos.length,
             itemBuilder: (context, i) =>
-                _crearItem(context, productos[i]),
+                _crearItem(context, productos[i], productos, i),
           );
         } else {
           return Center(
@@ -45,24 +45,25 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _crearItem(BuildContext context, ProductoModel producto,
-     ) {
+      List<ProductoModel> prod, int i) {
     return Dismissible(
       key: UniqueKey(),
       background: Container(
-        color: Colors.pinkAccent,
+        color: Theme.of(context).primaryColor,
       ),
       onDismissed: (direction) {
         productosProvider.borrarProducto(producto.id);
         // productosProvider.borrarProducto(producto.id).then(
         //       (value) => setState(() {
-        //         prod.removeAt(i);
+        //         prod.removeAt(position);
         //       }),
         //     );
       },
       child: ListTile(
         title: Text('${producto.titulo} - ${producto.valor}'),
         subtitle: Text(producto.id),
-        onTap: () => Navigator.pushNamed(context, 'producto',arguments: producto),
+        onTap: () =>
+            Navigator.pushNamed(context, 'producto', arguments: producto),
       ),
     );
   }
