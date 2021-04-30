@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<!-- Esta configuración la realizo yo para la cámara -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Se necesita permiso para acceder al carrete</string>
+	
+	<key>NSCameraUsageDescription </key>
+	<string>Se necesita permiso para acceder a la cámara</string>
+	
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Se necesita permiso para acceder al micrófono</string>
+	
+	<!-- fin de ingreso -->
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

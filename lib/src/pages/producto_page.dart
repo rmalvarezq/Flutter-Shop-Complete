@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:shopflutter/src/models/producto_model.dart';
 import 'package:shopflutter/src/providers/productos_provider.dart';
 import 'package:shopflutter/src/utils/utils.dart' as utils;
@@ -14,6 +18,7 @@ class _ProductoPageState extends State<ProductoPage> {
   ProductosProvider productosProvider = new ProductosProvider();
   ProductoModel producto = new ProductoModel();
   bool _guardando = false;
+  File foto;
   @override
   Widget build(BuildContext context) {
     final ProductoModel prodData = ModalRoute.of(context).settings.arguments;
@@ -27,11 +32,11 @@ class _ProductoPageState extends State<ProductoPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.photo_size_select_actual),
-            onPressed: () {},
+            onPressed: _seleccionarFoto,
           ),
           IconButton(
             icon: Icon(Icons.camera_alt),
-            onPressed: () {},
+            onPressed: _tomarFoto,
           )
         ],
       ),
@@ -42,6 +47,7 @@ class _ProductoPageState extends State<ProductoPage> {
             key: formKey,
             child: Column(
               children: [
+                _mostrarFoto(),
                 _crearNombre(),
                 _crearPrecio(),
                 _crearDisponible(),
@@ -143,12 +149,6 @@ class _ProductoPageState extends State<ProductoPage> {
   }
 
   void mostrarSnackBar(String mensaje) {
-    // final snackbar = SnackBar(
-    //   content: Text(mensaje),
-    //   duration: Duration(milliseconds: 1500),
-    // );
-    // // scaffoldKey.currentState.showSnackBar(snackbar);
-    // if (context == null) return;
     if (scaffoldKey == null) return;
     if (scaffoldKey.currentState == null) return;
     FocusScope.of(context).requestFocus(new FocusNode());
@@ -169,5 +169,38 @@ class _ProductoPageState extends State<ProductoPage> {
         duration: const Duration(seconds: 1),
       ));
     }
+  }
+
+  _mostrarFoto() {
+    if (producto.fotoUrl != null) {
+      return Container();
+    } else {
+      if (foto != null) {
+        return Image.file(
+          foto,
+          fit: BoxFit.cover,
+          height: 300.0,
+        );
+      }
+      return Image.asset('assets/no-image.png');
+    }
+  }
+
+  _seleccionarFoto() async {
+    _procesarImagen(ImageSource.gallery);
+  }
+
+  _tomarFoto() async {
+    _procesarImagen(ImageSource.camera);
+  }
+
+  _procesarImagen(ImageSource origen) async {
+    final _picker = ImagePicker();
+    final pickerFile = await _picker.getImage(source: origen);
+    foto = File(pickerFile.path);
+    if (foto != null) {
+      producto.fotoUrl = null;
+    }
+    setState(() {});
   }
 }
