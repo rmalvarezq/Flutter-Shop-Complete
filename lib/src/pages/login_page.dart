@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shopflutter/src/bloc/login_bloc.dart';
 import 'package:shopflutter/src/bloc/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPrivatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,7 +176,7 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               Icon(Icons.person_pin_circle, color: Colors.white, size: 100.0),
               SizedBox(height: 10.0, width: double.infinity),
-              Text('Fernando Herrera',
+              Text('Marcelo Alvarez',
                   style: TextStyle(color: Colors.white, fontSize: 25.0))
             ],
           ),

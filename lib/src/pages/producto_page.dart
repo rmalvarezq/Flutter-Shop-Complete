@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,8 +19,16 @@ class _ProductoPageState extends State<ProductoPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   ProductosProvider productosProvider = new ProductosProvider();
   ProductoModel producto = new ProductoModel();
+  CollectionReference imgRef;
   bool _guardando = false;
   File foto;
+  @override
+  void initState() {
+    Firebase.initializeApp();
+    imgRef = FirebaseFirestore.instance.collection('imgURLS');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ProductoModel prodData = ModalRoute.of(context).settings.arguments;
@@ -138,6 +148,9 @@ class _ProductoPageState extends State<ProductoPage> {
     });
     if (producto.id == null) {
       productosProvider.crearProducto(producto);
+      productosProvider
+          .uploadFile(foto, imgRef)
+          .then((value) => print('IMAGEN INSERTADA CORRECTAMENTE'));
     } else {
       productosProvider.editarProducto(producto);
     }

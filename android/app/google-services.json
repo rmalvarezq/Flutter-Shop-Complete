@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "341565453661",
+    "firebase_url": "https://mapa-flutter-7df2a-default-rtdb.firebaseio.com",
+    "project_id": "mapa-flutter-7df2a",
+    "storage_bucket": "mapa-flutter-7df2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341565453661:android:61fa297b90dd7f9355a4b4",
+        "android_client_info": {
+          "package_name": "com.example.mapas_gps_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341565453661-e671gnb5o2bksarkj980bn2rphj2kmjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUZv9TiWhjCyvgtg6WxnZbRhY7DSSGEuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341565453661-e671gnb5o2bksarkj980bn2rphj2kmjg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341565453661:android:8067e76e28a13d8255a4b4",
+        "android_client_info": {
+          "package_name": "com.example.shopflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341565453661-e671gnb5o2bksarkj980bn2rphj2kmjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUZv9TiWhjCyvgtg6WxnZbRhY7DSSGEuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341565453661-e671gnb5o2bksarkj980bn2rphj2kmjg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
