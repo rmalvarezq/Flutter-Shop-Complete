@@ -15,6 +15,15 @@ class ClientProvider {
     } catch (error) {
       errorMessage = error.code;
     }
-    if (errorMessage != null)  return Future.error(errorMessage);
+    if (errorMessage != null) return Future.error(errorMessage);
+  }
+
+  Future<Client> getById(String id) async {
+    DocumentSnapshot document = await _collectionReference.doc(id).get();
+    if (document.exists) {
+      Client client = Client.fromJson(document.data());
+      return client;
+    }
+    return null;
   }
 }

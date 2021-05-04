@@ -59,6 +59,7 @@ class ClientRegisterController {
       return;
     }
     _progressDialog.show();
+    Navigator.pushNamedAndRemoveUntil(context, 'client/map', (route) => false);
     try {
       // isRegister = await _authProvider.register(email, password);
       await _authProvider.register(email, password);
@@ -68,7 +69,7 @@ class ClientRegisterController {
         username: userName,
         password: password,
       );
-      print('nombre: $userName Contraseña: $password');
+      // print('nombre: $userName Contraseña: $password');
       await _clientProvider.create(client);
       _progressDialog.hide();
       utils.Snackbar.showSnackbar(
@@ -77,7 +78,7 @@ class ClientRegisterController {
       _progressDialog.hide();
       utils.Snackbar.showSnackbar(context, key,
           'Comuniquese con el administrador. Error: $error', Colors.red);
-      print('ERROR $error ');
+      // print('ERROR $error ');
     }
   }
 

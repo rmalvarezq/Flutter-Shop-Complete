@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shopflutter/login/models/admin.dart';
+import 'package:shopflutter/login/models/client.dart';
+import 'package:shopflutter/login/providers/admin_provider.dart';
 import 'package:shopflutter/login/providers/auth_provider.dart';
+import 'package:shopflutter/login/providers/client_provider.dart';
 // import 'package:mapas_gps_flutter/login/utils/my_progress_dialog.dart';
 import 'package:shopflutter/login/utils/shared_preference.dart';
 import 'package:shopflutter/login/utils/snackbar.dart' as utils;
@@ -14,6 +18,9 @@ class LoginController {
 
   AuthProvider _authProvider;
   // ProgressDialog _progressDialog;
+  AdminProvider _adminProvider;
+  ClientProvider _clientProvider;
+
   SharedPref _sharedPref;
   String _typeUser;
   bool isLogin = false;
@@ -22,9 +29,12 @@ class LoginController {
     _authProvider = new AuthProvider();
     // _progressDialog =
     //     MyProgressDialog.createProgressDialog(context, 'espere un momento');
+    _adminProvider = new AdminProvider();
+    _clientProvider = new ClientProvider();
     _sharedPref = new SharedPref();
     _typeUser = await _sharedPref.read('typeUser');
-    print('*********=> $_typeUser');
+
+    // print('*********=> $_typeUser');
   }
 
   void login() async {
@@ -34,27 +44,43 @@ class LoginController {
       utils.Snackbar.showSnackbar(
           context, key, 'Llene todos los campos', Colors.red);
     }
-    // _progressDialog.show();
     try {
       bool isLogin = await _authProvider.login(email, password);
-      // await _authProvider.login(email, password);
       if (isLogin) {
-        print('Logueado');
-        print(isLogin);
-        Navigator.pushNamed(context, 'login/private');
+        // print('Logueado');
+        if (_typeUser == 'client') {
+          Client client =
+              await _clientProvider.getById(_authProvider.getUser().uid);
+          if (client != null) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, 'client/map', (route) => false);
+            print('Client: $client');
+          } else {
+            utils.Snackbar.showSnackbar(
+                context, key, 'El usuario no es válido ', Colors.red);
+            await _authProvider.signOut();
+          }
+        }
+        if (_typeUser == 'admin') {
+          Admin admin =
+              await _adminProvider.getById(_authProvider.getUser().uid);
+          if (admin != null) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, 'admin/map', (route) => false);
+            print('Client: $Admin');
+          } else {
+            utils.Snackbar.showSnackbar(
+                context, key, 'El usuario no es válido ', Colors.red);
+            await _authProvider.signOut();
+          }
+        }
       }
-      Navigator.pushNamed(context, 'login/private');
-      // utils.Snackbar.showSnackbar(
-      //     context, key, 'Registro exitoso', Colors.green);
-      // _progressDialog.hide();
     } catch (error) {
-      // print('NOT LOGGED');
       utils.Snackbar.showSnackbar(context, key,
           'Comuniquese con el administrador. Error: $error', Colors.red);
       print('ERROR $error ');
-      // _progressDialog.hide();
       if (isLogin == false) {
-        print('No logueado');
+        // print('No logueado');
         Navigator.pushNamed(context, 'login');
       }
     }

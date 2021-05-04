@@ -40,7 +40,7 @@ class AdminRegisterController {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
-    // bool isRegister = true;
+    bool isRegister = true;
 
     String pin1 = pin1Controller.text.trim();
     String pin2 = pin2Controller.text.trim();
@@ -77,7 +77,7 @@ class AdminRegisterController {
     }
     _progressDialog.show();
     try {
-      // isRegister = await _authProvider.register(email, password);
+      isRegister = await _authProvider.register(email, password);
       await _authProvider.register(email, password);
       Admin admin = new Admin(
         id: _authProvider.getUser().uid,
@@ -92,7 +92,10 @@ class AdminRegisterController {
       _progressDialog.hide();
       utils.Snackbar.showSnackbar(
           context, key, 'Registro exitoso', Colors.green);
-      Navigator.pushNamed(context, 'login');
+      if (isRegister) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, 'admin/map', (route) => false);
+      }
     } catch (error) {
       _progressDialog.hide();
       utils.Snackbar.showSnackbar(context, key,

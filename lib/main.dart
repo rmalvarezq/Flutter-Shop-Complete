@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shopflutter/login/admin/map/admin_map_page.dart';
 import 'package:shopflutter/login/admin/register/admin_register_page.dart';
+import 'package:shopflutter/login/client/map/client_map_page.dart';
 import 'package:shopflutter/login/client/registro/client_register_page.dart';
 import 'package:shopflutter/login/home/home_login_page.dart';
 import 'package:shopflutter/login/pages/login_page.dart';
@@ -38,7 +40,9 @@ class MyApp extends StatelessWidget {
           'login': (_) => LoginPage(),
           'login/private': (_) => LoginPrivatePage(),
           'admin/register': (_) => AdminRegisterPage(),
+          'admin/map': (_) => AdminMapPage(),
           'client/register': (_) => ClientRegisterPage(),
+          'client/map': (_) => ClientMapPage(),
         },
       ),
     );

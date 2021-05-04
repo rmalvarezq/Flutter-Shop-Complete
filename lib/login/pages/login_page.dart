@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _bannerApp(BuildContext context) {
     final height_size = MediaQuery.of(context).size.height;
- 
+
     return ClipPath(
       clipper: WaveClipperTwo(),
       child: Container(
@@ -75,7 +75,8 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Lottie.asset('assets/json/an-electric-car.json', width: 150, height: 150),
+            Lottie.asset('assets/json/an-electric-car.json',
+                width: 150, height: 150),
             Text(
               'Fácil y Rápido ',
               style: TextStyle(

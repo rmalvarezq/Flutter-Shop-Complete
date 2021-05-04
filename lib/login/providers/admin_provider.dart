@@ -15,6 +15,16 @@ class AdminProvider {
     } catch (error) {
       errorMessage = error.code;
     }
-    if (errorMessage != null)  return Future.error(errorMessage);
+    if (errorMessage != null) return Future.error(errorMessage);
+  }
+
+  Future<Admin> getById(String id) async {
+    DocumentSnapshot document = await _collectionReference.doc(id).get();
+
+    if (document.exists) {
+      Admin admin = Admin.fromJson(document.data());
+      return admin;
+    }
+    return null;
   }
 }
