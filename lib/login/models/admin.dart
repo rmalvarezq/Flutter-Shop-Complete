@@ -10,7 +10,7 @@ class Admin {
     this.username,
     this.email,
     this.password,
-    this.plate,
+    this.plate, 
   });
 
   String id;

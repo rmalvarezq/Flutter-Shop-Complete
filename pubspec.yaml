@@ -38,11 +38,15 @@ dependencies:
   cloud_firestore: ^1.0.7
   firebase_core: ^1.1.0
   transparent_image: ^2.0.0
-  # mezclad del otro proyecto
+  # dependencias necesarias para login
   progress_dialog: ^1.2.0
   flutter_custom_clippers: ^1.1.2
   shared_preferences: ^2.0.5
   firebase_auth: ^1.1.0
+  # dependencias necesarias para mapa de google 
+  google_maps_flutter: ^2.0.3
+  
+
 
 
 
