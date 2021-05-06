@@ -14,15 +14,15 @@ class _AdminMapPageState extends State<AdminMapPage> {
   @override
   void initState() {
     super.initState();
-
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _con.init(context);
+      _con.init(context, refresh);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _con.key,
       body: Stack(
         children: [
           _googleMapsWidget(),
@@ -55,9 +55,7 @@ class _AdminMapPageState extends State<AdminMapPage> {
         elevation: 4.0,
         child: Container(
           padding: EdgeInsets.all(10),
-          
           child: Icon(
-            
             Icons.location_searching,
             color: Colors.grey[600],
             size: 20,
@@ -99,10 +97,19 @@ class _AdminMapPageState extends State<AdminMapPage> {
   }
 
   Widget _googleMapsWidget() {
+    
     return GoogleMap(
       mapType: MapType.normal,
       initialCameraPosition: _con.initialPosition,
-      onMapCreated: _con.OnMapCreated,
+      onMapCreated: _con.onMapCreated,
+      // myLocationEnabled: true,
+      // myLocationButtonEnabled: true,
+      markers: Set<Marker>.of(_con.markers.values),
     );
+  }
+  void refresh(){
+    setState(() {
+          
+        });
   }
 }
